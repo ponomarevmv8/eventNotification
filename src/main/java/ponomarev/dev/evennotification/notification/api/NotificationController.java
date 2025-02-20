@@ -34,9 +34,9 @@ public class NotificationController {
 
     @PostMapping()
     public ResponseEntity<Void> readNotificationsUsers(
-            @RequestBody List<Long> notificationIds
+            @RequestBody NotificationIdsDto notificationIdsDto
     ) {
-        notificationUserService.readNotificationUsers(notificationIds);
+        notificationUserService.readNotificationUsers(notificationIdsDto.notificationIds());
         return ResponseEntity.noContent()
                 .build();
     }

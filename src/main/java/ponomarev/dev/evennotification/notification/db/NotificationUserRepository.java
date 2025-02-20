@@ -13,7 +13,6 @@ import java.util.List;
 public interface NotificationUserRepository extends JpaRepository<NotificationUserEntity, Long> {
 
     @Modifying
-    @Transactional
     @Query("""
             update NotificationUserEntity n
             set n.isRead = true
@@ -25,11 +24,4 @@ public interface NotificationUserRepository extends JpaRepository<NotificationUs
             @Param("notificationsIds") List<Long> notificationsIds
     );
 
-    @Query("""
-            select n from NotificationUserEntity n
-            where n.notification.id in :notificationsIds
-            """)
-    List<NotificationUserEntity> findAllByEventId(
-            @Param("notificationsIds") List<Long> notificationsIds
-    );
 }

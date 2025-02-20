@@ -7,7 +7,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ponomarev.dev.evennotification.notification.db.NotificationEntity;
 import ponomarev.dev.evennotification.notification.db.NotificationRepository;
-import ponomarev.dev.evennotification.notification.db.NotificationUserEntity;
 import ponomarev.dev.evennotification.notification.db.NotificationUserRepository;
 
 import java.time.LocalDateTime;
@@ -15,16 +14,15 @@ import java.util.List;
 
 @Service
 @EnableScheduling
-public class NotificationDeleted {
+public class DeleteNotificationScheduler {
 
-    private static final Logger log = LoggerFactory.getLogger(NotificationDeleted.class);
+    private static final Logger log = LoggerFactory.getLogger(DeleteNotificationScheduler.class);
     private final NotificationRepository notificationRepository;
-    private final NotificationUserRepository notificationUserRepository;
 
-    public NotificationDeleted(NotificationRepository notificationRepository, NotificationUserRepository notificationUserRepository) {
+    public DeleteNotificationScheduler(NotificationRepository notificationRepository) {
         this.notificationRepository = notificationRepository;
-        this.notificationUserRepository = notificationUserRepository;
     }
+
 
     @Scheduled(fixedRateString = "#{${scheduled.update.fixedrate}}")
     public void notificationDeleted() {

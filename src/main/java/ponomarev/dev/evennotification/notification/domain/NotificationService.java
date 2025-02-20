@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ponomarev.dev.evennotification.kafka.event.EventChangeKafkaEvent;
 import ponomarev.dev.evennotification.kafka.event.FieldChange;
 import ponomarev.dev.evennotification.notification.db.NotificationEntity;
@@ -32,6 +33,7 @@ public class NotificationService {
         this.jwtAuthenticationService = jwtAuthenticationService;
     }
 
+    @Transactional
     public Notification createNotificationFromKafka(EventChangeKafkaEvent event) {
         NotificationEntity notificationEvent = new NotificationEntity(
                 null,
